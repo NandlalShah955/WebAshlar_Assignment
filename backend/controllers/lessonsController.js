@@ -96,5 +96,42 @@ class LessonController {
         }
     }
 
+    static markLessonCompleted = async (req,res) =>{
+        try {
+            const { lessonid } = req.params; 
+          
+            if (!mongoose.Types.ObjectId.isValid(lessonid)) {
+                return res.status(400).json({
+                    status: "failed",
+                    message: `Invalid lesson ID: ${lessonid}.`,
+                });
+            }
+            const updatedLesson = await LessonModel.findByIdAndUpdate(
+                lessonid,
+                { completed: true }, 
+                { new: true } 
+            );
+    
+            if (!updatedLesson) {
+                return res.status(404).json({
+                    status: "failed",
+                    message: `Lesson  not found.`,
+                });
+            }
+    
+            res.status(200).json({
+                status: "success",
+                message: "Lesson marked as Completed successfully.",
+                data: updatedLesson,
+            });
+        } catch (error) {
+            res.status(500).json({
+                status: "failed",
+                message: "Error while marking the lesson as incomplete.",
+                error: error.message,
+            }); 
+        }
+    }
+
 }
 export default LessonController;
