@@ -5,7 +5,7 @@ try {
     const response=await axios.get(Backend_Url+ 'courses');
     return response.data;
 } catch (error) {
-    
+    return error.message
 }
 }
 

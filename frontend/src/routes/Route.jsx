@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Homepage from "../pages/Homepage";
-import Courses from "../pages/Courses";
+import CoursesForm from "../pages/CoursesForm";
 import CourseDetails from "../pages/CourseDetails";
 
 const AppRoute = () => {
@@ -9,7 +9,7 @@ const AppRoute = () => {
         <>
             <Routes>
                 <Route path="/" element={<Homepage />} />
-                <Route path="/courses" element={<Courses />} />
+                <Route path="/coursesform" element={<CoursesForm />} />
                 <Route path="/coursesdetails" element={<CourseDetails />} />
                 
             </Routes>

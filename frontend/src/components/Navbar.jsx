@@ -72,7 +72,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/courses" className="menu-item">
+              <Link to="/coursesform" className="menu-item">
                 Course Management
               </Link>
             </li>
