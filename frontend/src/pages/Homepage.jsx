@@ -8,7 +8,8 @@ const Homepage = () => {
     try {
       setLoading(true);
       const response = await getCourses();
-      setcourses(response);
+      console.log(response);
+      setcourses(response.data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching form data:', error);
@@ -29,7 +30,7 @@ const Homepage = () => {
         <div className="courses-container">
           {courses.map((course, index) => (
             <div className="course-card" key={index}>
-              <img src={course.image} alt={course.title} className="course-image" />
+              <img src={'https://welloffun-api.aleaspeaks.com/storage/images/umCya4nX5DrV24zvb3B50ifX3D1VpcbVJBHikTwa.jpg'} alt={course.title} className="course-image" />
               <h3 className="course-title">{course.title}</h3>
               <p className="course-description">{course.description}</p>
               <p className="course-dates">
