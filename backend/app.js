@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import connectdb from './config/connectdb.js';   
 import lessonRoutes from './routes/lessonRoute.js';
-import courseRoutes from './routes/CourseRoute.js';
+import courseRoutes from './routes/courseRoute.js';
 dotenv.config(); 
 
 const app = express();
