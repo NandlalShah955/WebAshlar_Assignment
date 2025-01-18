@@ -2,7 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import connectdb from './config/connectdb.js';   
-import courseRoutes from './routes/courseRoute.js';
+import lessonRoutes from './routes/lessonRoute.js';
+import courseRoutes from './routes/CourseRoute.js';
 dotenv.config(); 
 
 const app = express();
@@ -22,7 +23,8 @@ app.get('/',(req,res)=>{
     res.status(200).send("Hellow there");
 
 })
-app.use('/api/course',courseRoutes)
+app.use('/courses',courseRoutes)
+app.use('/lessons',lessonRoutes)
 
 
 app.listen(port,()=>{
