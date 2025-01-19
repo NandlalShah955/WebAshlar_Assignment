@@ -58,7 +58,19 @@ const CoursesForm = () => {
       end_date: values.end_date ? values.end_date.format("YYYY-MM-DD") : null,
     };
     if (courseid) {
-      updateCourse({ courseid, payload: formattedData });
+      updateCourse({ courseid, payload: formattedData }).then((res)=>{
+        Swal.fire({
+          title: res.message,
+          icon: "success",
+          draggable: true
+        });
+      }).catch((err)=>{
+        Swal.fire({
+          title: err.data.message,
+          icon: "success",
+          draggable: true
+        });
+      })
     } else {
       createCourse(formattedData).then((res)=>{
 

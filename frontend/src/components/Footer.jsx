@@ -16,7 +16,7 @@ const Footer = () => {
           </p>
         </div>
         <div className="col">
-          <h3>Contact Information <div className="bottom_line"><span></span></div></h3>
+          <h3>Contact  <div className="bottom_line"><span></span></div></h3>
           <p>L-1/1450 </p>
           <p> San Francsisco,</p>
           <p>United Kingdom</p>

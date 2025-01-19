@@ -6,7 +6,6 @@ import { EditOutlined } from "@ant-design/icons";
 import { getLessons, deleteLesson ,completeLesson} from "../services/LessonsDataService";
 import "../styles/CourseDetails.css";
 import moment from 'moment';
-import CoursesForm from "./CoursesForm";
 
 const { Panel } = Collapse;
 
@@ -52,9 +51,7 @@ const LessonsCollapse = () => {
   }
   const handleDeleteLesson = async (lessonid) => {
     try {
-      // setLoadingDelete(lessonid); 
       await deleteLesson(lessonid);
-      // setLoadingDelete(null); 
       getLessonsData();
     } catch (error) {
       console.error("Error deleting course:", error);
@@ -132,7 +129,7 @@ const LessonsCollapse = () => {
                             }}
                           />
                           <Button
-                            className="edit-icon"
+                            className={lesson.completed == true ?"completed_icon":"incomplete-icon"}
                             onClick={(e) => {
                               e.stopPropagation();
                               handleCompleteLesson(lesson._id);
