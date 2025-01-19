@@ -6,14 +6,14 @@ import mongoose from 'mongoose';
 class CourseController {
     static createCourse = async (req, res) => {
         try {
-            const { title, description, start_date, end_date } = req.body;
+            const { title, description, start_date, end_date ,image} = req.body;
             if (!title || !start_date || !end_date) {
                 return res.status(400).json({
                     status: "failed",
                     message: "All fields (title, startdate & enddate) are required.",
                 });
             }
-            const newCourse = await CourseModel.create({ title, description, start_date, end_date });
+            const newCourse = await CourseModel.create({ title, description, start_date, end_date,image });
 
             res.status(201).json({
                 status: "success",

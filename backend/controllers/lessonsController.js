@@ -96,42 +96,42 @@ class LessonController {
         }
     }
 
-    static markLessonCompleted = async (req,res) =>{
+    static markLessonCompleted = async (req, res) => {
         try {
-            const { lessonid } = req.params; 
-          
+            const { lessonid } = req.params;
             if (!mongoose.Types.ObjectId.isValid(lessonid)) {
                 return res.status(400).json({
                     status: "failed",
                     message: `Invalid lesson ID: ${lessonid}.`,
                 });
             }
+            const lesson = await LessonModel.findById(lessonid);
+            if (!lesson) {
+                return res.status(404).json({
+                    status: "failed",
+                    message: `Lesson not found.`,
+                });
+            }
             const updatedLesson = await LessonModel.findByIdAndUpdate(
                 lessonid,
-                { completed: true }, 
+                { completed: !lesson.completed }, 
                 { new: true } 
             );
     
-            if (!updatedLesson) {
-                return res.status(404).json({
-                    status: "failed",
-                    message: `Lesson  not found.`,
-                });
-            }
-    
             res.status(200).json({
                 status: "success",
-                message: "Lesson marked as Completed successfully.",
+                message: `Lesson marked as ${updatedLesson.completed ? 'completed' : 'incomplete'} successfully.`,
                 data: updatedLesson,
             });
         } catch (error) {
             res.status(500).json({
                 status: "failed",
-                message: "Error while marking the lesson as incomplete.",
+                message: "Error while toggling the lesson completion status.",
                 error: error.message,
-            }); 
+            });
         }
-    }
+    };
+    
 
 }
 export default LessonController;

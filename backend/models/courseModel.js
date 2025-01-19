@@ -4,6 +4,7 @@ const courseSchema = new mongoose.Schema({
     description: { type: String,  trim: true },
     start_date: { type: Date,required: true, trim: true },
     end_date: { type: Date,required: true, trim: true },
+    image:{type: String, trim: true},
     lessons: [{ type: mongoose.Schema.Types.ObjectId, ref: "lesson" }],
 }, {
     timestamps: true,
