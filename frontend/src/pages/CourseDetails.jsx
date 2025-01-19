@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Collapse, Spin, Rate } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { EditOutlined } from "@ant-design/icons";
-import { getLessons } from "../services/LessonsDataService";
+import { getLessons, deleteLesson } from "../services/LessonsDataService";
 import "../styles/CourseDetails.css";
 
 const { Panel } = Collapse;
@@ -13,6 +13,7 @@ const LessonsCollapse = () => {
   const [course, setcourse] = useState([]);
   const [loading, setLoading] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const { courseid } = location.state || {};
 
   const getLessonsData = async () => {
@@ -32,13 +33,36 @@ const LessonsCollapse = () => {
     getLessonsData();
   }, []);
 
+  const handleGoLessonEditPage = (lessonid) => {
+    navigate("/lessonform", {
+      state: { lessonid: lessonid, courseid: courseid },
+    });
+  };
+  const handleAddLesson = ()=>{
+    navigate("/lessonform", {
+      state: {courseid: courseid },
+    });
+   
+  }
+  const handleDeleteLesson = async (lessonid) => {
+    console.log("lessonid", lessonid);
+    try {
+      // setLoadingDelete(lessonid); 
+      await deleteLesson(lessonid);
+      // setLoadingDelete(null); 
+      getLessonsData();
+    } catch (error) {
+      console.error("Error deleting course:", error);
+      setLoadingDelete(null);
+    }
+  };
+
   return (
     <div className="course-details">
       {loading ? (
         <Spin size="large" />
       ) : (
         <div className="course-container">
-          {/* Course Overview Section */}
           <div className="course-header">
             <div className="course-info">
               <h1 className="course-title">
@@ -62,7 +86,15 @@ const LessonsCollapse = () => {
           </div>
 
           <div className="course-content">
-            <h2 className="section-heading">Lessons</h2>
+            <div className="header-with-button">
+              <h2 className="section-heading">Lessons</h2>
+              <button
+                className="add-lesson-button"
+                onClick={() => handleAddLesson()}
+              >
+                Add Lesson
+              </button>
+            </div>
             <Collapse accordion>
               {lessons.map((lesson) => (
                 <Panel
@@ -75,7 +107,7 @@ const LessonsCollapse = () => {
                           className="edit-icon"
                           onClick={(e) => {
                             e.stopPropagation();
-                            handleEditLesson(lesson._id);
+                            handleGoLessonEditPage(lesson._id);
                           }}
                         />
                         <DeleteOutlined
