@@ -20,7 +20,7 @@ const Footer = () => {
           <p>L-1/1450 </p>
           <p> San Francsisco,</p>
           <p>United Kingdom</p>
-          <p className="footer_email">must.foundation@gmail.com</p>
+          <p className="footer_email">info.course@gmail.com</p>
           <h4>+321 - 8745333360</h4>
         </div>
         <div className="col">
@@ -43,10 +43,10 @@ const Footer = () => {
         <div className="col">
           <h3>Newsletter <div className="bottom_line"><span></span></div></h3>
           <form>
-            <ion-icon class="icon" name="mail"></ion-icon>
+            <ion-icon className="icon" name="mail"></ion-icon>
             <input type="email" placeholder="Enter your email" required />
             <button type="submit">
-              <ion-icon class="icon_right" name="arrow-round-forward"></ion-icon>
+              <ion-icon className="icon_right" name="arrow-round-forward"></ion-icon>
             </button>
           </form>
           <div className="social_icons">
@@ -54,7 +54,7 @@ const Footer = () => {
               <FaFacebook className="social_icon" />
             </a>
             <a href="https://www.instagram.com/musthelp.foundation" target="_blank" rel="noopener noreferrer">
-              <FaInstagram class="social_icon" />
+              <FaInstagram className="social_icon" />
             </a>
             <a href="https://wa.me/918448674560?text=I%20want%20to%20donate" target="_blank" rel="noopener noreferrer">
               <FaWhatsapp className="social_icon" />

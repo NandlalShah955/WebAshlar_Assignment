@@ -8,7 +8,6 @@ import "../styles/Homepage.css";
 const Homepage = () => {
   const [courses, setcourses] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [loadingDelete, setLoadingDelete] = useState(null);
   const navigate = useNavigate();
 
   const getData = async () => {
@@ -40,17 +39,40 @@ const Homepage = () => {
   };
 
   const handleDelete = async (courseid) => {
-    try {
-      setLoading(true)
-      await deleteCourse(courseid);
-      getData();
-      setLoading(false)
-      
-    } catch (error) {
-      console.error("Error deleting course:", error);
-      setLoading(false)
-    }
+    Swal.fire({
+      title: "Are you sure you want to delete this course?",
+      showDenyButton: true,
+      icon: "warning",
+      confirmButtonText: "Yes",
+      denyButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const response = deleteCourse(courseid);
+        if (response) {
+          Swal.fire({
+            title: "Your Course is Deleted Successfully ",
+            icon: "success",
+          });
+          getData();
+        }else if(response.error){
+            Swal.fire({
+                title: response.error.data.message,
+                icon: "error",
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
+      } else if (result.isDenied) {
+        Swal.fire({
+          title: "Your Course is safe!",
+          icon: "info",
+          confirmButtonText: "OK",
+        });
+      }
+    });
+   
   };
+
   return (
     <>
       {loading ? (
@@ -69,7 +91,9 @@ const Homepage = () => {
             <div className="course-card" key={course._id}>
               <img
                 src={
-                  "https://welloffun-api.aleaspeaks.com/storage/images/umCya4nX5DrV24zvb3B50ifX3D1VpcbVJBHikTwa.jpg"
+                  course.image
+                    ? course.image
+                    : "https://welloffun.aleaspeaks.com/static/media/featureimg2.ba6c32d4531e50b4f159.png"
                 }
                 alt={course.title}
                 className="course-image"
@@ -93,11 +117,10 @@ const Homepage = () => {
                 </button>
                 <button
                   className="btn delete-btn"
-                onClick={() => handleDelete(course._id)}
+                  onClick={() => handleDelete(course._id)}
                 >
                   Delete
                 </button>
-
               </div>
             </div>
           ))}

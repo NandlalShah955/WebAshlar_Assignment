@@ -6,6 +6,7 @@ import { EditOutlined } from "@ant-design/icons";
 import { getLessons, deleteLesson ,completeLesson} from "../services/LessonsDataService";
 import "../styles/CourseDetails.css";
 import moment from 'moment';
+import CoursesForm from "./CoursesForm";
 
 const { Panel } = Collapse;
 
@@ -89,7 +90,7 @@ const LessonsCollapse = () => {
             </div>
             <div className="course-pricing">
               <img
-                src="https://welloffun-api.aleaspeaks.com/storage/images/umCya4nX5DrV24zvb3B50ifX3D1VpcbVJBHikTwa.jpg"
+                src={course.image?course.image:"https://welloffun.aleaspeaks.com/static/media/featureimg2.ba6c32d4531e50b4f159.png"}
                 alt="Course Preview"
                 className="course-image"
               />

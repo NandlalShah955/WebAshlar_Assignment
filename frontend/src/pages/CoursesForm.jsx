@@ -34,7 +34,7 @@ const CoursesForm = () => {
      
       form.setFieldsValue({
         title: response.data.title,
-        imagelink: response.data.imagelink,
+        image: response.data.image,
         start_date: response.data.start_date ? moment(formattedStartDate, "YYYY-MM-DD") : null,
         end_date: response.data.end_date ? moment(formattedEndDate, "YYYY-MM-DD") : null,
         description: response.data.description,
@@ -69,7 +69,7 @@ const CoursesForm = () => {
         });
         form.setFieldsValue({
           title: '',
-          imagelink: '',
+          image: '',
           start_date: '',
           end_date: '' ,
           description: '',
@@ -94,7 +94,7 @@ const CoursesForm = () => {
         className="responsive-form"
         initialValues={{
           title: course?.title || "",
-          imagelink: course?.imagelink || "",
+          image: course?.image || "",
           start_date: course?.start_date ? moment(course.start_date, "YYYY-MM-DD") : null,
           end_date: course?.end_date ? moment(course.end_date, "YYYY-MM-DD") : null,
           description: course?.description || "",
@@ -111,7 +111,7 @@ const CoursesForm = () => {
           </Form.Item>
 
           <Form.Item
-            name="imagelink"
+            name="image"
             label="Image Url"
             className="form-item-large"
           >
