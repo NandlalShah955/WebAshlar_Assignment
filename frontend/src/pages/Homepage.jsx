@@ -39,28 +39,31 @@ const Homepage = () => {
   };
 
   const handleDelete = async (courseid) => {
-    Swal.fire({
+    const result =await Swal.fire({
       title: "Are you sure you want to delete this course?",
       showDenyButton: true,
       icon: "warning",
       confirmButtonText: "Yes",
       denyButtonText: "No",
-    }).then((result) => {
+    })
       if (result.isConfirmed) {
-        const response = deleteCourse(courseid);
-        if (response) {
-          Swal.fire({
-            title: "Your Course is Deleted Successfully ",
-            icon: "success",
-          });
-          getData();
-        }else if(response.error){
+        try {
+          const response = await deleteCourse(courseid);
+          if (response) {
             Swal.fire({
-                title: response.error.data.message,
-                icon: "error",
-                confirmButtonText: 'OK'
+              title: "Your Course is Deleted Successfully",
+              icon: "success",
             });
-            return;
+            await getData(); 
+          }
+        } catch (error) {
+          Swal.fire({
+            title: "Error deleting course",
+            text: "Something went wrong. Please try again later.",
+            icon: "error",
+          });
+          console.error("Error deleting course:", error);
+        
         }
       } else if (result.isDenied) {
         Swal.fire({
@@ -69,7 +72,7 @@ const Homepage = () => {
           confirmButtonText: "OK",
         });
       }
-    });
+    
    
   };
 
