@@ -18,7 +18,6 @@ export const createLesson=async({courseid,payload})=>{
 }
 export const updateLesson=async({lessonid,payload})=>{
     try {
-        console.log('lessonid in service', lessonid,payload)
         const response =await axios.put(`${Backend_Url}lessons/${lessonid}`,payload);
         return response.data;
     } catch (error) {

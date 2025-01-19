@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Collapse, Spin, Rate } from "antd";
+import { Collapse, Rate } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { EditOutlined } from "@ant-design/icons";
 import { getLessons, deleteLesson } from "../services/LessonsDataService";
 import "../styles/CourseDetails.css";
+import Swal from "sweetalert2";
+import moment from 'moment';
 
 const { Panel } = Collapse;
 
@@ -38,14 +40,13 @@ const LessonsCollapse = () => {
       state: { lessonid: lessonid, courseid: courseid },
     });
   };
-  const handleAddLesson = ()=>{
+  const handleAddLesson = () => {
     navigate("/lessonform", {
-      state: {courseid: courseid },
+      state: { courseid: courseid },
     });
-   
+
   }
   const handleDeleteLesson = async (lessonid) => {
-    console.log("lessonid", lessonid);
     try {
       // setLoadingDelete(lessonid); 
       await deleteLesson(lessonid);
@@ -60,7 +61,10 @@ const LessonsCollapse = () => {
   return (
     <div className="course-details">
       {loading ? (
-        <Spin size="large" />
+        <div className="loader-container">
+          <div className="spinner"></div>
+          <p>Loading Lessons...</p>
+        </div>
       ) : (
         <div className="course-container">
           <div className="course-header">
@@ -74,7 +78,8 @@ const LessonsCollapse = () => {
                 <Rate allowHalf defaultValue={4.5} className="rating" />
                 <span className="rating-text">(43,269 ratings) 245,728 students</span>
               </div>
-              <p className="course-update">Start Date: ${course.start_date} • English • Subtitles: Arabic, Hindi, and more</p>
+              <p className="course-update">Start Date: {moment(course.start_date, "YYYY-MM-DD").format("DD-MM-YYYY")} • English • Subtitles: Arabic, Hindi, and more</p>
+              <p className="course-update">End Date: {moment(course.end_date, "YYYY-MM-DD").format("DD-MM-YYYY")} </p>
             </div>
             <div className="course-pricing">
               <img
@@ -88,43 +93,44 @@ const LessonsCollapse = () => {
           <div className="course-content">
             <div className="header-with-button">
               <h2 className="section-heading">Lessons</h2>
-              <button
-                className="add-lesson-button"
-                onClick={() => handleAddLesson()}
-              >
+              <button className="add-lesson-button" onClick={() => handleAddLesson()}>
                 Add Lesson
               </button>
             </div>
-            <Collapse accordion>
-              {lessons.map((lesson) => (
-                <Panel
-                  key={lesson._id}
-                  header={
-                    <div className="panel-header">
-                      <span>{lesson.title}</span>
-                      <div className="icon-container">
-                        <EditOutlined
-                          className="edit-icon"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleGoLessonEditPage(lesson._id);
-                          }}
-                        />
-                        <DeleteOutlined
-                          className="delete-icon"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDeleteLesson(lesson._id);
-                          }}
-                        />
+            {lessons.length === 0 ? (
+              <p className="no-lessons-message">No lessons available.</p>
+            ) : (
+              <Collapse accordion>
+                {lessons.map((lesson) => (
+                  <Panel
+                    key={lesson._id}
+                    header={
+                      <div className="panel-header">
+                        <span>{lesson.title}</span>
+                        <div className="icon-container">
+                          <EditOutlined
+                            className="edit-icon"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleGoLessonEditPage(lesson._id);
+                            }}
+                          />
+                          <DeleteOutlined
+                            className="delete-icon"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDeleteLesson(lesson._id);
+                            }}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  }
-                >
-                  <p>{lesson.content}</p>
-                </Panel>
-              ))}
-            </Collapse>
+                    }
+                  >
+                    <p>{lesson.content}</p>
+                  </Panel>
+                ))}
+              </Collapse>
+            )}
           </div>
         </div>
       )}

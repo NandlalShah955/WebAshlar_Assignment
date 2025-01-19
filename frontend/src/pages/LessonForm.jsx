@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { Form, Input, Button, Row, Col } from "antd";
+import { useLocation,useNavigate } from "react-router-dom";
+import { Form, Input, Button } from "antd";
 import { getLessons, updateLesson, createLesson } from "../services/LessonsDataService";
 import "../styles/LessonForm.css";
+import Swal from 'sweetalert2';
 const { TextArea } = Input;
 
 const LessonForm = () => {
   const [form] = Form.useForm();
   const location = useLocation();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { lessonid, courseid } = location.state || {};
 
@@ -38,16 +40,47 @@ const LessonForm = () => {
   }, [lessonid]);
 
   const onFinish = (values) => {
-    console.log("values", values);
     if (lessonid) {
-      updateLesson({ lessonid, payload: values });
+      updateLesson({ lessonid, payload: values }).then((res)=>{
+        Swal.fire({
+          title: res.message,
+          icon: "success",
+          draggable: true
+        });
+      }).catch((err)=>{
+        Swal.fire({
+          title: err.data.message,
+          icon: "error",
+          draggable: true
+        });
+      })
     } else {
-      createLesson({ courseid, payload: values });
+      createLesson({ courseid, payload: values }).then((res) => {
+        Swal.fire({
+          title: res.message,
+          icon: "success",
+          draggable: true
+        });
+        form.setFieldsValue({
+          title: '',
+          content: '',
+        });
+      }).catch((err) => {
+        Swal.fire({
+          title: err.data.message,
+          icon: "error",
+          draggable: true
+        });
+        
+      })
     }
   };
-
+  const handleGoBack = () => {
+    navigate(-1);
+  };
   return (
     <div className="form-container">
+       <button className="back-button" onClick={()=>handleGoBack()}>Back</button>
       <h2>{lessonid ? "Edit Lesson" : "Add Lesson"}</h2>
       <Form
         form={form}
@@ -58,9 +91,9 @@ const LessonForm = () => {
         <Form.Item
           name="title"
           label="Title"
-          rules={[{ required: true, message: "Please enter title" }]}
+          rules={[{ required: true, message: "Please enter Lesson title" }]}
         >
-          <Input placeholder="Enter Title here" />
+          <Input placeholder="Enter Lesson Title " />
         </Form.Item>
 
         <Form.Item

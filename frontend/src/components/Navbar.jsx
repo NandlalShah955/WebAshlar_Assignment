@@ -19,7 +19,7 @@ const Hamburger = () => (
         height="4"
         rx="2"
         transform="translate(304 47)"
-        fill="#574c4c"
+        fill="#fff"
       />
       <rect
         id="Rectangle_5"
@@ -28,7 +28,7 @@ const Hamburger = () => (
         height="4"
         rx="2"
         transform="translate(304 67)"
-        fill="#574c4c"
+        fill="#fff"
       />
       <rect
         id="Rectangle_4"
@@ -37,7 +37,7 @@ const Hamburger = () => (
         height="4"
         rx="2"
         transform="translate(294 57)"
-        fill="#574c4c"
+        fill="#fff"
       />
     </g>
   </svg>
@@ -53,17 +53,17 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="container">
-        {/* Logo Section */}
         <div className="logo">
-          <img src={'https://marketplace.canva.com/EAFaFUz4aKo/2/0/1600w/canva-yellow-abstract-cooking-fire-free-logo-JmYWTjUsE-Q.jpg'} alt="Must Help Foundation" />
+          <Link to="/">
+          
+          <img src={'https://img.freepik.com/free-vector/open-book-icon-education-symbol-flat-design-vector-illustration_53876-136267.jpg?ga=GA1.1.4184247.1736579379&semt=ais_hybrid'} alt="Must Help Foundation" />
+          </Link>
         </div>
 
-        {/* Hamburger Menu Icon */}
         <div className="menu-icon" onClick={handleShowNavbar}>
-          <Hamburger />
+          <Hamburger style={{color:'white'}}/>
         </div>
 
-        {/* Navigation Links */}
         <div className={`nav-elements ${showNavbar ? 'active' : ''}`}>
           <ul>
             <li>
@@ -82,12 +82,6 @@ const Navbar = () => {
 
 
         <div className="navbar-right">
-          <div className="search-bar">
-            <FiSearch className="search-icon" />
-          </div>
-          <div className="heart-icon">
-            <FiHeart />
-          </div>
         </div>
       </div>
     </nav>

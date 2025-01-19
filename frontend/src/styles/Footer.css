@@ -34,11 +34,11 @@ p.anim{
 }
 footer{
     width: 100%;
-    background: #fef7e5;
-    color: black;
-    padding: 50px 0 30px;
+    background: #102d5e;
+    color: #fff;
+    padding: 50px 0 0px;
     font-size: 13px;
-    line-height: 20px;
+    /* line-height: 20px; */
     border-top: 2px solid black;
 }
 .row{
@@ -76,7 +76,7 @@ footer{
 }
 .footer_email{
     width: fit-content;
-    border-bottom: 1px solid #f66335;
+    border-bottom: 1px solid #fff;
     margin: 20px 0;
 }
 .col ul li{
@@ -85,14 +85,14 @@ footer{
 }
 .col ul li a{
     text-decoration: none;
-    color: black;
+    color: #fff;
 }
 .col form{
     padding-bottom: 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #f66335;
+    border-bottom: 1px solid #fff;
     margin-bottom: 50px;
 }
 .col form .icon{

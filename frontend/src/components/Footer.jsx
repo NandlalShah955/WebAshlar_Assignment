@@ -10,18 +10,18 @@ const Footer = () => {
     <footer>
       <div className="row">
         <div className="col">
-          <img src={'https://marketplace.canva.com/EAFaFUz4aKo/2/0/1600w/canva-yellow-abstract-cooking-fire-free-logo-JmYWTjUsE-Q.jpg'} className="footer_logo" alt="Logo" />
+          <img src={'https://img.freepik.com/free-vector/open-book-icon-education-symbol-flat-design-vector-illustration_53876-136267.jpg?ga=GA1.1.4184247.1736579379&semt=ais_hybrid'} className="footer_logo" alt="Logo" />
           <p className="footer_about">
-            You will be provided accurate Proof of Donation for all your generous donations with complete honesty.
+          This platform offers a curated list of kids' training programs and holiday-themed courses, designed to engage and educate children during their free time.
           </p>
         </div>
         <div className="col">
-          <h3>Office <div className="bottom_line"><span></span></div></h3>
-          <p>1450, Phase-3, J.J.Colony, </p>
-          <p> Madanpur Khadar,</p>
-          <p>New Delhi-110076, Delhi, India</p>
+          <h3>Contact Information <div className="bottom_line"><span></span></div></h3>
+          <p>L-1/1450 </p>
+          <p> San Francsisco,</p>
+          <p>United Kingdom</p>
           <p className="footer_email">must.foundation@gmail.com</p>
-          <h4>+91 - 8448674560</h4>
+          <h4>+321 - 8745333360</h4>
         </div>
         <div className="col">
           <h3 className='leftspace'>Links <div className="bottom_line"><span></span></div></h3>
@@ -29,13 +29,13 @@ const Footer = () => {
             <li><Link to="/"  >
               Home
             </Link></li>
-            <li><Link to="/about">
+            <li><Link to="/">
               About us
             </Link></li>
-            <li> <Link to="/blog" >
+            <li> <Link to="/" >
               Blog
             </Link></li>
-            <li><Link to="/contact" >
+            <li><Link to="/" >
               Contact
             </Link></li>
           </ul>
@@ -63,8 +63,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <hr />
-      <p className="copyright">Must Help Foundation Ⓒ 2022 - All Rights Reserved</p>
+     
     </footer>
   );
 };

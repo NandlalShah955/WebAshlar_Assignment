@@ -2,18 +2,20 @@ import React, { useState, useEffect } from "react";
 import { getCourses, deleteCourse } from "../services/CourseDataService";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import Swal from "sweetalert2";
 import "../styles/Homepage.css";
 
 const Homepage = () => {
   const [courses, setcourses] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [loadingDelete, setLoadingDelete] = useState(null); 
+  const [loadingDelete, setLoadingDelete] = useState(null);
   const navigate = useNavigate();
 
   const getData = async () => {
     try {
       setLoading(true);
       const response = await getCourses();
+      console.log(response.data);
       setcourses(response.data);
       setLoading(false);
     } catch (error) {
@@ -38,23 +40,28 @@ const Homepage = () => {
   };
 
   const handleDelete = async (courseid) => {
-    console.log("courseid", courseid);
     try {
-      setLoadingDelete(courseid); 
+      setLoading(true)
       await deleteCourse(courseid);
-      setLoadingDelete(null);
+      getData();
+      setLoading(false)
+      
     } catch (error) {
       console.error("Error deleting course:", error);
-      setLoadingDelete(null); 
+      setLoading(false)
     }
   };
-
   return (
     <>
       {loading ? (
         <div className="loader-container">
           <div className="spinner"></div>
           <p>Loading courses...</p>
+        </div>
+      ) : courses.length === 0 ? (
+        <div className="no-courses-message">
+          <h1>No course available</h1>
+          <p>You can add course on Course Management Section</p>
         </div>
       ) : (
         <div className="courses-container">
@@ -84,16 +91,13 @@ const Homepage = () => {
                 >
                   Edit
                 </button>
-                {loadingDelete === course._id ? (
-                  <div className="spinner delete-spinner"></div>
-                ) : (
-                  <button
-                    className="btn delete-btn"
-                    onClick={() => handleDelete(course._id)}
-                  >
-                    Delete
-                  </button>
-                )}
+                <button
+                  className="btn delete-btn"
+                onClick={() => handleDelete(course._id)}
+                >
+                  Delete
+                </button>
+
               </div>
             </div>
           ))}

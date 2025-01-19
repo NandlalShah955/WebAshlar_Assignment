@@ -4,6 +4,7 @@ import { Form, Input, DatePicker, Button } from "antd";
 import { getLessons } from '../services/LessonsDataService';
 import {updateCourse,createCourse} from '../services/CourseDataService';
 import moment from 'moment'
+import Swal from 'sweetalert2';
 import '../styles/CourseForm.css';
 
 const { TextArea } = Input;
@@ -59,10 +60,30 @@ const CoursesForm = () => {
     if (courseid) {
       updateCourse({ courseid, payload: formattedData });
     } else {
-      createCourse(formattedData);
+      createCourse(formattedData).then((res)=>{
+
+        Swal.fire({
+          title: res.message,
+          icon: "success",
+          draggable: true
+        });
+        form.setFieldsValue({
+          title: '',
+          imagelink: '',
+          start_date: '',
+          end_date: '' ,
+          description: '',
+        });
+      }).catch((err)=>{
+        Swal.fire({
+          title: err.data.message,
+          icon: "success",
+          draggable: true
+        });
+
+      })
     }
   };
-
   return (
     <div className="form-container">
       <h2>{course ? "Edit Course" : "Add Course"}</h2>
