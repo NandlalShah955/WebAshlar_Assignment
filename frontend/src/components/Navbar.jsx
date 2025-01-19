@@ -80,7 +80,7 @@ const Navbar = () => {
           </ul>
         </div>
 
-        {/* Search Bar and Heart Icon */}
+
         <div className="navbar-right">
           <div className="search-bar">
             <FiSearch className="search-icon" />

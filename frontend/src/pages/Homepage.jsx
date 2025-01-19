@@ -7,7 +7,7 @@ import "../styles/Homepage.css";
 const Homepage = () => {
   const [courses, setcourses] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [loadingDelete, setLoadingDelete] = useState(null); // Track which course is being deleted
+  const [loadingDelete, setLoadingDelete] = useState(null); 
   const navigate = useNavigate();
 
   const getData = async () => {
@@ -40,13 +40,12 @@ const Homepage = () => {
   const handleDelete = async (courseid) => {
     console.log("courseid", courseid);
     try {
-      setLoadingDelete(courseid); // Set the loading state for the specific course
+      setLoadingDelete(courseid); 
       await deleteCourse(courseid);
-      setLoadingDelete(null); // Reset the loading state
-      getData();
+      setLoadingDelete(null);
     } catch (error) {
       console.error("Error deleting course:", error);
-      setLoadingDelete(null); // Reset the loading state on error
+      setLoadingDelete(null); 
     }
   };
 
@@ -86,7 +85,7 @@ const Homepage = () => {
                   Edit
                 </button>
                 {loadingDelete === course._id ? (
-                  <div className="spinner delete-spinner"></div> // Show a loader
+                  <div className="spinner delete-spinner"></div>
                 ) : (
                   <button
                     className="btn delete-btn"

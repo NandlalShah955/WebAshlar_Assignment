@@ -140,7 +140,6 @@
     text-align: start;
   }
   
-  /* Mobile Screen  */
   @media (max-width: 768px) {
     .course-header {
       flex-direction: column;

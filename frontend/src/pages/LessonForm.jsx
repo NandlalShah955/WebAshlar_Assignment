@@ -55,7 +55,6 @@ const LessonForm = () => {
         layout="vertical"
         className="responsive-form"
       >
-        {/* Title Field */}
         <Form.Item
           name="title"
           label="Title"
@@ -64,7 +63,6 @@ const LessonForm = () => {
           <Input placeholder="Enter Title here" />
         </Form.Item>
 
-        {/* Content Field */}
         <Form.Item
           name="content"
           label="Lesson Content"
@@ -73,7 +71,6 @@ const LessonForm = () => {
           <TextArea rows={4} placeholder="Enter Lesson Content" />
         </Form.Item>
 
-        {/* Submit Button */}
         <Form.Item>
           <Button
             type="primary"

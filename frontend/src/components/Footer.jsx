@@ -1,7 +1,7 @@
 import { FaFacebook, FaWhatsapp } from 'react-icons/fa';
 import { FaInstagram } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-// import logo from "../assets/Must-help-logo.png";
+
 import "../styles/Footer.css";
 
 
