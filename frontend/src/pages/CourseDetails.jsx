@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Collapse, Rate } from "antd";
+import { Button, Collapse, Rate } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { EditOutlined } from "@ant-design/icons";
-import { getLessons, deleteLesson } from "../services/LessonsDataService";
+import { getLessons, deleteLesson ,completeLesson} from "../services/LessonsDataService";
 import "../styles/CourseDetails.css";
-import Swal from "sweetalert2";
 import moment from 'moment';
 
 const { Panel } = Collapse;
@@ -32,8 +31,12 @@ const LessonsCollapse = () => {
   };
 
   useEffect(() => {
-    getLessonsData();
-  }, []);
+    if (!courseid) {
+      navigate("/");
+    } else {
+      getLessonsData();
+    }
+  }, [courseid, navigate]);
 
   const handleGoLessonEditPage = (lessonid) => {
     navigate("/lessonform", {
@@ -57,7 +60,10 @@ const LessonsCollapse = () => {
       setLoadingDelete(null);
     }
   };
-
+  const handleCompleteLesson = async (lessonid) => {
+    const response = await completeLesson(lessonid);
+    getLessonsData();
+  }
   return (
     <div className="course-details">
       {loading ? (
@@ -108,6 +114,8 @@ const LessonsCollapse = () => {
                       <div className="panel-header">
                         <span>{lesson.title}</span>
                         <div className="icon-container">
+
+
                           <EditOutlined
                             className="edit-icon"
                             onClick={(e) => {
@@ -122,6 +130,15 @@ const LessonsCollapse = () => {
                               handleDeleteLesson(lesson._id);
                             }}
                           />
+                          <Button
+                            className="edit-icon"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleCompleteLesson(lesson._id);
+                            }}>
+                            {lesson.completed == true ? "Completed" : 'Not Completed'}
+
+                          </Button>
                         </div>
                       </div>
                     }

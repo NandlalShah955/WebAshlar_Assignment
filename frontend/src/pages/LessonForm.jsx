@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation,useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Form, Input, Button } from "antd";
 import { getLessons, updateLesson, createLesson } from "../services/LessonsDataService";
 import "../styles/LessonForm.css";
@@ -34,20 +34,22 @@ const LessonForm = () => {
   };
 
   useEffect(() => {
-    if (lessonid) {
+    if (!courseid) {
+      navigate("/");
+    } else if (lessonid) {
       getLesson();
     }
   }, [lessonid]);
 
   const onFinish = (values) => {
     if (lessonid) {
-      updateLesson({ lessonid, payload: values }).then((res)=>{
+      updateLesson({ lessonid, payload: values }).then((res) => {
         Swal.fire({
           title: res.message,
           icon: "success",
           draggable: true
         });
-      }).catch((err)=>{
+      }).catch((err) => {
         Swal.fire({
           title: err.data.message,
           icon: "error",
@@ -71,7 +73,7 @@ const LessonForm = () => {
           icon: "error",
           draggable: true
         });
-        
+
       })
     }
   };
@@ -80,7 +82,7 @@ const LessonForm = () => {
   };
   return (
     <div className="form-container">
-       <button className="back-button" onClick={()=>handleGoBack()}>Back</button>
+      <button className="back-button" onClick={() => handleGoBack()}>Back</button>
       <h2>{lessonid ? "Edit Lesson" : "Add Lesson"}</h2>
       <Form
         form={form}

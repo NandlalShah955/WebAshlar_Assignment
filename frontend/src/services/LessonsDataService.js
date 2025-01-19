@@ -32,3 +32,11 @@ export const deleteLesson=async(lessonid)=>{
         return error.message;
     }
 }
+export const completeLesson=async(lessonid)=>{
+    try {
+        const response =await axios.post(`${Backend_Url}lessons/${lessonid}/complete`);
+        return response.data;
+    } catch (error) {
+        return error.message;
+    }
+}
